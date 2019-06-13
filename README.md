@@ -20,6 +20,7 @@ MFCCs are commonly derived as follows:
 ### Acustic Model:
 The input data in speech recognition is a sequence of observations in the form of frame vectors from regular time intervals. The desired output is a series of symbols: phonemes, graphemes, or words. The basic problem is that the number of frames does not have a predictible correspondence to the number of the output symbols. For example, if we assume 20ms per frame, the following audio signals of the word "speech" spoken at two different speeds have about 300 frames in the first example and something like 850 frames in the second example, yet they should both be decoded as the six-letter word, "speech".
 ## Data
+Reduced version of [LibriSpeech dataset](http://www.openslr.org/12/) was used in order to simplify training. https://www.kaggle.com/yasiashpot/librispeech - My version of preprocessed data you can find here.
 ## Algorithm
 ## Demo
 ## Installation
