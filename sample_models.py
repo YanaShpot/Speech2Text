@@ -210,9 +210,16 @@ def final_model(input_dim, filters, kernel_size, conv_stride,
                      padding=conv_border_mode,
                      activation='relu',
                      name='conv1d')(input_data)
+
     # Add batch normalization
     bn_cnn = BatchNormalization(name='bn_conv_1d')(conv_1d)
-    rnn_layer = bn_cnn
+    #Add activation and maxpooling but not tested yet
+    activ_conv_1 = Activation('relu', name="activ_conv_1")(bn_cnn)
+    maxpool_1d = MaxPooling1D(pool_size=pool_ksize,
+                                strides=pool_stride,
+                                padding=pool_border_mode,
+                                name="maxpool_1d")(activ_conv_1)
+    rnn_layer =  maxpool_1d
     for i in range(recur_layers):
         simp_rnn = Bidirectional(RNN_type(units, activation='relu',
             return_sequences=True, implementation=2, recurrent_dropout=dropout, dropout=dropout, name='bidir_rnn_{}'.format(i + 1)))(rnn_layer)
