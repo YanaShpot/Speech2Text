@@ -22,7 +22,7 @@ MFCCs are commonly derived as follows:
 ### Main Components Overview
 Most automatic speech recognition (ASR) systems jointly train three components: an acoustic model that learns the relationship between audio signals and the linguistic units that make up speech, a language model that assigns probabilities to sequences of words, and a mechanism that performs alignment the acoustic frames and recognized symbols.
 
-### Acustic Model:
+### Acoustic Model
 The input data in speech recognition is a sequence of observations in the form of frame vectors from regular time intervals. The desired output is a series of symbols: phonemes, graphemes, or words. The basic problem is that the number of frames does not have a predictible correspondence to the number of the output symbols. For example, if we assume 20ms per frame, the following audio signals of the word "hello" spoken at two different speeds have about 300 frames in the first example and something like 850 frames in the second example, yet they should both be decoded as the five-letter word, "hello".
 
 ## Data
@@ -31,8 +31,78 @@ In order to simplify training I only took dev_clean and test_clean subsets. Abou
 https://www.kaggle.com/yasiashpot/librispeech - My version of preprocessed data you can find here.
 
 ## Algorithm
-For educational purposes several models were trained. There are 5 models at the moment, starting from the simplest RRN model and ending with 9-layers model with CNN layer and cain of 3 bidirectional RNNs. 
+For educational purposes several models were trained. There are 7 models at the moment, starting from the simplest RRN model (which is not compatible) and ending up with 9-layers model with CNN layer and cain of 3 bidirectional RNNs. 
 ## Demo
 ## Installation
+### Obtain dataset
+1. Download the dataset from [Kaggle](https://www.kaggle.com/yasiashpot/librispeech) 
+2. Change paths in train_corpus and valid_corpus JSONs to correspond to dataset's paths on the PC OR create new JSONs
+```
+python create_desc_json.py LibriSpeech/dev-clean/ train_corpus.json
+python create_desc_json.py LibriSpeech/test-clean/ valid_corpus.json
+```
+### Local Environment Setup
+Taken from [here](https://github.com/udacity/AIND-VUI-Capstone) 
+
+You should run this project with GPU acceleration for best performance.
+
+1. Clone the repository, and navigate to the downloaded folder.
+```
+git clone https://github.com/YanaShpot/Speech2Text.git
+cd Speech2Text
+```
+
+2. Create (and activate) a new environment and the `numpy` package.
+
+	- __Linux__ or __Mac__: 
+	```
+	conda create --name aind-vui numpy
+	source activate aind-vui
+	```
+	- __Windows__: 
+	```
+	conda create --name aind-vui numpy scipy
+	activate aind-vui
+	```
+
+3. Install TensorFlow.
+	- Option 1: __To install TensorFlow with GPU support__, follow [the guide](https://www.tensorflow.org/install/) to install the necessary NVIDIA software on your system.  If you are using an EC2 GPU instance, you can skip this step and only need to install the `tensorflow-gpu` package:
+	```
+	pip install tensorflow-gpu
+	```
+	- Option 2: __To install TensorFlow with CPU support only__,
+	```
+	pip install tensorflow
+	```
+
+4. Install a few pip packages.
+```
+pip install -r requirements.txt
+```
+
+5. Switch [Keras backend](https://keras.io/backend/) to TensorFlow.
+	- __Linux__ or __Mac__: 
+	```
+	KERAS_BACKEND=tensorflow python -c "from keras import backend"
+	```
+	- __Windows__: 
+	```
+	set KERAS_BACKEND=tensorflow
+	python -c "from keras import backend"
+	```
+
+6. Obtain the `libav` package.
+	- __Linux__: `sudo apt-get install libav-tools`
+	- __Mac__: `brew install libav`
+	- __Windows__: Browse to the [Libav website](https://libav.org/download/)
+		- Scroll down to "Windows Nightly and Release Builds" and click on the appropriate link for your system (32-bit or 64-bit).
+		- Click `nightly-gpl`.
+		- Download most recent archive file.
+		- Extract the file.  Move the `usr` directory to your C: drive.
+		- Go back to your terminal window from above.
+	```
+	rename C:\usr avconv
+    set PATH=C:\avconv\bin;%PATH%
+	```
 ## Conclusions & Further Work
 ## References
