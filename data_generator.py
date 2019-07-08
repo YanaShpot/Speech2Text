@@ -63,7 +63,7 @@ class AudioGenerator():
             texts = self.valid_texts
         elif partition == 'test':
             audio_paths = self.test_audio_paths
-            cur_index = self.test_valid_index
+            cur_index = self.cur_test_index
             texts = self.test_texts
         else:
             raise Exception("Invalid partition. "
