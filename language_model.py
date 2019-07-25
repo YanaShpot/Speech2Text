@@ -1,4 +1,4 @@
-#!/usr/bin/env udacity
+#!/usr/bin/env s2t
 # -*- coding: utf-8 -*-
 """
 Created on Wed Jun 13 10:39:12 2018

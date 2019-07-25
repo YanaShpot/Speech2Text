@@ -2,7 +2,7 @@ tensorflow==1.14
 h5py==2.9.0
 ipykernel==4.8.2
 jupyter==1.0.0
-keras==2.1.6
+keras==2.2.4
 librosa==0.6.1
 opencv-python==4.1.0.25
 python-speech-features==0.6

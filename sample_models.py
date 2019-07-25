@@ -7,8 +7,7 @@ from keras.layers import (BatchNormalization, Conv1D, Dense, Input,
 def simple_rnn_model(input_dim, output_dim=29):
     input_data = Input(name='the_input', shape=(None, input_dim))
     # Add recurrent layer
-    simp_rnn = GRU(output_dim, return_sequences=True,
-                   implementation=2, name='rnn')(input_data)
+    simp_rnn = GRU(output_dim, return_sequences=True, name='rnn')(input_data)
     # Add softmax activation layer
     y_pred = Activation('softmax', name='softmax')(simp_rnn)
     # Specify the model
@@ -23,7 +22,7 @@ def rnn_model(input_dim, units, activation, output_dim=29):
     input_data = Input(name='the_input', shape=(None, input_dim))
     # Add recurrent layer
     simp_rnn = GRU(units, activation=activation,
-                   return_sequences=True, implementation=2, name='rnn')(input_data)
+                   return_sequences=True, name='rnn')(input_data)
     # Add batch normalization
     bn_rnn = BatchNormalization()(simp_rnn)
     # Add a TimeDistributed(Dense(output_dim)) layer
@@ -51,7 +50,7 @@ def cnn_rnn_model(input_dim, filters, kernel_size, conv_stride,
     bn_cnn = BatchNormalization(name='bn_conv_1d')(conv_1d)
     # Add a recurrent layer
     simp_rnn = SimpleRNN(units, activation='relu',
-                         return_sequences=True, implementation=2, name='rnn')(bn_cnn)
+                         return_sequences=True, name='rnn')(bn_cnn)
     # Add batch normalization
     bn_rnn = BatchNormalization()(simp_rnn)
     # Add a TimeDistributed(Dense(output_dim)) layer
@@ -81,7 +80,7 @@ def cnn_rnn_model_with_dropout(input_dim, filters, kernel_size, conv_stride,
     # dropout_layer = Dropout(0.3)(bn_cnn)
     # Add a recurrent layer
     simp_rnn = SimpleRNN(units, activation='relu',
-                         return_sequences=True, implementation=2, name='rnn', dropout=0.3, recurrent_dropout=0.3)(
+                         return_sequences=True, name='rnn', dropout=0.3, recurrent_dropout=0.3)(
         bn_cnn)
     # Add batch normalization
     bn_rnn = BatchNormalization()(simp_rnn)
@@ -121,7 +120,7 @@ def deep_rnn_model(input_dim, units, recur_layers, output_dim=29):
     rnn_layer = input_data
     for i in range(recur_layers):
         simp_rnn = GRU(units, activation='relu',
-                       return_sequences=True, implementation=2, name='rnn_{}'.format(i + 1))(rnn_layer)
+                       return_sequences=True, name='rnn_{}'.format(i + 1))(rnn_layer)
         # Add batch normalization
         bn_rnn = BatchNormalization()(simp_rnn)
         rnn_layer = bn_rnn
@@ -142,7 +141,7 @@ def bidirectional_rnn_model(input_dim, units, output_dim=29):
     # Main acoustic input
     input_data = Input(name='the_input', shape=(None, input_dim))
     # Add bidirectional recurrent layer
-    bidir_rnn = Bidirectional(GRU(units, activation='relu', return_sequences=True, implementation=2, name='rnn'))(
+    bidir_rnn = Bidirectional(GRU(units, activation='relu', return_sequences=True, name='rnn'))(
         input_data)
     bn_rnn = BatchNormalization()(bidir_rnn)
     # Add a TimeDistributed(Dense(output_dim)) layer
@@ -164,7 +163,7 @@ def deep_bidirectional_rnn_model(input_dim, units, recur_layers=1, RNN_type=LSTM
         rnn_layer = input_data
         for i in range(recur_layers):
             simp_rnn = Bidirectional(RNN_type(units, activation='relu',
-                return_sequences=True, implementation=2, name='bidir_rnn_{}'.format(i + 1)))(rnn_layer)
+                return_sequences=True, name='bidir_rnn_{}'.format(i + 1)))(rnn_layer)
             # Add batch normalization
             bn_rnn = BatchNormalization()(simp_rnn)
             rnn_layer = bn_rnn
@@ -196,7 +195,7 @@ def final_model_upd(input_dim, filters, kernel_size, conv_stride,conv_border_mod
     rnn_layer = bn_cnn
     for i in range(recur_layers):
         simp_rnn = Bidirectional(RNN_type(units, activation='relu',
-                                          return_sequences=True, implementation=2, recurrent_dropout=dropout, dropout=dropout, name='bidir_rnn_{}'.format(i + 1)))(rnn_layer)
+                                          return_sequences=True, recurrent_dropout=dropout, dropout=dropout, name='bidir_rnn_{}'.format(i + 1)))(rnn_layer)
         # Add batch normalization
         bn_rnn = BatchNormalization()(simp_rnn)
         rnn_layer = bn_rnn
