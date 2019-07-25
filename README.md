@@ -31,8 +31,9 @@ In order to simplify training I only took dev_clean and test_clean subsets. Abou
 https://www.kaggle.com/yasiashpot/librispeech - My version of preprocessed data you can find here.
 
 ## Algorithm
-For educational purposes several models were trained. There are 7 models at the moment, starting from the simplest RRN model (which is not compatible) and ending up with 9-layers model with CNN layer and cain of 3 bidirectional RNNs. 
+For educational purposes several models were trained. There are 7 models at the moment, starting from the simplest RRN model (which is not compatible at all) and ending up with 9-layers model with CNN layer and chain of 3 bidirectional RNNs. 
 ## Demo
+
 ## Installation
 ### Obtain dataset
 1. Download the dataset from [Kaggle](https://www.kaggle.com/yasiashpot/librispeech) 
@@ -56,13 +57,13 @@ cd Speech2Text
 
 	- __Linux__ or __Mac__: 
 	```
-	conda create --name aind-vui numpy
-	source activate aind-vui
+	conda create --name s2t python=3.7 numpy
+	conda activate s2t
 	```
 	- __Windows__: 
 	```
-	conda create --name aind-vui numpy scipy
-	activate aind-vui
+	conda create --name s2t python=3.7 numpy scipy
+	activate s2t
 	```
 
 3. Install TensorFlow.
@@ -105,4 +106,10 @@ pip install -r requirements.txt
     set PATH=C:\avconv\bin;%PATH%
 	```
 ## Conclusions & Further Work
+## What I plan to do:
+1)Ability to convert live speech to text
+2)Own language model
+3)Tools to normalise audios & to get rid of irrelevant information
+4)Make better model with the knowledge of latest researches
+5)Test some new thingslike [SpecAugment]("brains-specaugment-and-pytorch-d3d1a3ce291e")
 ## References
